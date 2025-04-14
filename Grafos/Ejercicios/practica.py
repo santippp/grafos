@@ -29,3 +29,46 @@ def lee_grafo_archivo(file):
         aristas.append((nodo1, nodo2))
 
     return (vertices, aristas)
+
+def cuenta_grado(grafo_lista) :
+    salida = {}
+    vertices, aristas = grafo_lista
+
+    # Inicializar el grado de cada vértice a 0
+    for vertice in vertices:
+        salida[vertice] = 0
+
+    # Contar las aristas incidentes en cada vértice
+    for arista in aristas:
+        u, v = arista  # Desempaquetar los vértices de la arista
+        if u in salida:
+            salida[u] += 1
+        if v in salida:
+            salida[v] += 1
+
+    print(f"lista: {salida}")
+
+def vertice_aislado(grafo_lista):
+    salida = {}
+    vertices, aristas = grafo_lista
+
+    # Inicializar el grado de cada vértice a 0
+    for vertice in vertices:
+        salida[vertice] = 0
+
+    # Contar las aristas incidentes en cada vértice
+    for arista in aristas:
+        u, v = arista  # Desempaquetar los vértices de la arista
+        if u in salida:
+            salida[u] += 1
+        if v in salida:
+            salida[v] += 1
+            
+    verticescero = []
+    i=0
+    for vertice in vertices:
+        if salida[vertice] == 0:
+            verticescero[i] = vertice
+            i+=1
+    print(f"{verticescero}")
+
