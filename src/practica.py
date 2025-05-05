@@ -1,7 +1,7 @@
 def mostrar_saludo():
     print("hola que tal")
 
-def lee_grafo_stdin(grafo):
+def lee_grafo(grafo):
     cant_vert = int(grafo[0])
     vertices = grafo[1 : 1 + cant_vert]
 
@@ -72,3 +72,30 @@ def vertice_aislado(grafo_lista):
             i+=1
     print(f"{verticescero}")
 
+def componentes_conexas(grafo_lista):
+    nodos, aristas = grafo_lista
+    # Paso 1: Crear un diccionario de adyacencia
+    adyacencias = {nodo: [] for nodo in nodos}
+    for (nodo1, nodo2) in aristas:
+        adyacencias[nodo1].append(nodo2)
+        adyacencias[nodo2].append(nodo1)  # Grafo no dirigido
+
+    # Paso 2: Función DFS para explorar los nodos
+    def dfs(nodo, visitado, componente):
+        visitado.add(nodo)
+        componente.append(nodo)
+        for vecino in adyacencias[nodo]:
+            if vecino not in visitado:
+                dfs(vecino, visitado, componente)
+    
+    # Paso 3: Encontrar las componentes conexas
+    visitado = set()
+    componentes = []
+    
+    for nodo in nodos:
+        if nodo not in visitado:
+            componente = []
+            dfs(nodo, visitado, componente)
+            componentes.append(componente)
+    
+    return componentes
