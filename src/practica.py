@@ -99,3 +99,38 @@ def componentes_conexas(grafo_lista):
             componentes.append(componente)
     
     return componentes
+
+    # practica 2
+def vertice_aislado(grafo_lista):
+    vertices, aristas = grafo_lista
+    conectados = set()
+    for arista in aristas:
+        conectados.add(arista[0])
+        conectados.add(arista[1])
+    aislados = [v for v in vertices if v not in conectados]
+    return aislados
+
+def componentes_conexas(grafo_lista):
+    verts, arists = grafo_lista
+    
+    conjuntos = [{v} for v in verts]
+
+    def encontrar_conjunto(vertice):
+        for conjunto in conjuntos:
+            if vertice in conjunto:
+                return conjunto
+        return None
+
+    for a, b in arists:
+        conj_a = encontrar_conjunto(a)
+        conj_b = encontrar_conjunto(b)
+
+        if conj_a != conj_b:
+            conjuntos.remove(conj_a)
+            conjuntos.remove(conj_b)
+            conjuntos.append(conj_a.union(conj_b))
+
+    return conjuntos
+
+
+    
